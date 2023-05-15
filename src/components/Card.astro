@@ -1,63 +1,45 @@
 ---
-export interface Props {
-	title: string;
-	body: string;
-	href: string;
-}
+import { Image } from "@astrojs/image/components";
+import type { CollectionEntry } from "astro:content";
 
-const { href, title, body } = Astro.props;
+type Props = {
+  hideAuthor?: boolean;
+  minifyTitle?: boolean;
+} & CollectionEntry<"blog">;
+
+const { data, slug, hideAuthor, minifyTitle } = Astro.props as Props;
+
+const minifiedTitle =
+  data.title.length > 30 ? `${data.title.slice(0, 30)}...` : data.title;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 0.25rem;
-		background-color: white;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 0.6rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	}
+<div
+  class="p-4 border-solid border-2 border-sky-500 grid gap-4 hover:bg-sky-50"
+>
+  <div class="grid gap-2">
+    <h1>
+      <span class="font-extrabold text-xl"
+        >{minifyTitle ? minifiedTitle : data.title}</span
+      >{" "}
+    </h1>
+    <Image {...data.image} format="webp" fit={"contain"} class="h-48 w-96" />
+    <p>{data.description}</p>
+  </div>
 
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: #111;
-		background-color: white;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-		color: #444;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
-	}
-</style>
+  <div>
+    <a
+      href={`/${data.author.toLowerCase().replace(" ", "")}/${slug}`}
+      class="text-sky-500 font-extrabold">Read more</a
+    >
+    {
+      !hideAuthor && (
+        <span class="font-bold text-lg text-sky-700 cursor-pointer">
+          {"- "}
+          <a href={`/${data.author.toLowerCase().replace(" ", "")}/`}>
+            {data.author}
+          </a>
+        </span>
+      )
+    }
+  </div>
+</div>

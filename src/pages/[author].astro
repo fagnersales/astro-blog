@@ -1,0 +1,41 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import Main from "../layouts/Main.astro";
+import Card from "../components/Card.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => {
+    return !data.draft && data.date < new Date();
+  });
+
+  const authors = posts.reduce((authors, post) => {
+    return authors.includes(post.data.author)
+      ? authors
+      : [...authors, post.data.author];
+  }, [] as string[]);
+
+  const postsByAuthor = (author: string) =>
+    posts.filter((post) => post.data.author === author);
+
+  return authors.map((author) => ({
+    params: { author: author.toLowerCase().replace(" ", "") },
+    props: { author, posts: postsByAuthor(author) },
+  }));
+}
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+  author: CollectionEntry<"blog">["data"]["author"];
+}
+
+const { posts, author } = Astro.props as Props;
+---
+
+<Main>
+  <section class="m-8">
+    <h1 class="text-3xl font-bold mb-5">{author}</h1>
+    <section class="grid gap-4 grid-cols-auto-fill">
+      {posts.map((post) => <Card {...post} hideAuthor={true} />)}
+    </section>
+  </section>
+</Main>

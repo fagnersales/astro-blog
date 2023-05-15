@@ -1,0 +1,53 @@
+---
+import MainLayout from "../layouts/Main.astro";
+import Author from "../components/Author.astro";
+import { Image } from "@astrojs/image/components";
+
+import { CollectionEntry, getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => {
+    return !data.draft && data.date < new Date();
+  });
+
+  return posts.map((post) => ({
+    params: {
+      slug: `${post.data.author.toLowerCase().replace(" ", "")}/${post.slug}`,
+    },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props as Props;
+---
+
+<MainLayout>
+  <section class="m-auto my-8 grid gap-4 max-w-3xl place-content-center">
+    <Author date={post.data.date} name={post.data.author} />
+    <h1 class="text-3xl font-extrabold">{post.data.title}</h1>
+    <p class="text-lg font-semibold">{post.data.description}</p>
+    <Image {...post.data.image} format="webp" />
+    <section>
+      {
+        post.body.split("\r\n").map((text) => {
+          if (text.startsWith("# "))
+            return (
+              <h1 class="text-2xl font-black mb-4">{text.replace("# ", "")}</h1>
+            );
+
+          return <p class="text-lg font-medium mb-4">{text}</p>;
+        })
+      }
+    </section>
+
+    <button
+      class="justify-self-start font-black text-lg text-sky-800 bg-sky-200 p-4 pt-2 pb-2"
+    >
+      <a href="/">Voltar</a>
+    </button>
+  </section>
+</MainLayout>
