@@ -3,7 +3,6 @@ import MainLayout from "@layouts/Main.astro";
 import Author from "@components/Author.astro";
 import { Image } from "@astrojs/image/components";
 import { CollectionEntry, getCollection } from "astro:content";
-import Tags from "@components/Tags.astro";
 import InitialPageButton from "@components/InitialPageButton.astro";
 
 export async function getStaticPaths() {
@@ -26,18 +25,38 @@ interface Props {
 const { post } = Astro.props as Props;
 
 const { Content } = await post.render();
+
+const tagToSlug = (tag: string): string => {
+  return `/tag/${tag.toLowerCase()}/`;
+};
+
+const tags = post.data.tags;
 ---
 
 <MainLayout>
   <section class="m-8 grid md:gap-2 lg:m-auto lg:my-8 lg:max-w-3xl">
     <h1 class="text-3xl font-extrabold">{post.data.title}</h1>
-    <Tags tags={post.data.tags} />
-    <p class="text-lg font-semibold">{post.data.description}</p>
+
+    <div class="flex gap-2 mb-2">
+      {
+        tags.map((tag) => (
+          <a
+            href={tagToSlug(tag)}
+            class="text-gray-500 font-bold hover:cursor-pointer hover:underline hover:text-gray-400"
+          >{`#${tag.toUpperCase()}`}</a>
+        ))
+      }
+    </div>
+
     <Author date={post.data.date} name={post.data.author} />
-    <Image {...post.data.image} format="webp" class="max-w-2/3" />
+    {
+      post.data.image && (
+        <Image {...post.data.image} format="webp" class="max-w-2/3" />
+      )
+    }
 
     <article
-      class="prose-xl prose-stone min-w-full mt-4 prose-h2:font-black prose-h2:hover:underline prose-h2:hover:text-sky-400 prose-h2:hover:cursor-pointer"
+      class="mb-8 prose-xl prose-stone min-w-full mt-4 prose-h1:font-black prose-h2:font-extrabold prose-h3:font-bold"
     >
       <Content />
     </article>

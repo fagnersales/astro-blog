@@ -1,8 +1,8 @@
 ---
 import Main from "@layouts/Main.astro";
-import Card from "@components/Card.astro";
 import { CollectionEntry, getCollection } from "astro:content";
 import InitialPageButton from "@components/InitialPageButton.astro";
+import Cards from "@components/Cards.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => {
@@ -35,18 +35,9 @@ const { tag, posts } = Astro.props as Props;
 ---
 
 <Main>
-  <section class="m-8 grid gap-4">
-    <h1 class="text-3xl font-bold text-sky-500">{`#${tag.toUpperCase()}`}</h1>
-    <section class="grid gap-4 grid-cols-auto-fit">
-      {
-        posts.length === 0 ? (
-          <h1>I could not find any post for this tag</h1>
-        ) : (
-          posts.map((post) => <Card {...post} />)
-        )
-      }
-    </section>
-
+  <section class="m-8 grid gap-4 lg:m-auto lg:my-8 lg:max-w-3xl">
+    <h1 class="text-3xl font-bold text-gray-200 pb-4 border-b-2 border-b-gray-700">{`#${tag.toUpperCase()}`}</h1>
+    <Cards posts={posts} />
     <InitialPageButton text="Página Inicial" />
   </section>
 </Main>

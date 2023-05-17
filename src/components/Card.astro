@@ -1,45 +1,49 @@
 ---
-import { Image } from "@astrojs/image/components";
 import type { CollectionEntry } from "astro:content";
-import Tags from "./Tags.astro";
 
 type Props = {
   hideAuthor?: boolean;
-  minifyTitle?: boolean;
+  index: number;
 } & CollectionEntry<"blog">;
 
-const { data, slug, hideAuthor, minifyTitle } = Astro.props as Props;
+const { data, slug, index } = Astro.props as Props;
 
-const minifiedTitle =
-  data.title.length > 30 ? `${data.title.slice(0, 30)}...` : data.title;
+const formattedDate = data.date.toLocaleDateString("pt-BR", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const tagToSlug = (tag: string): string => {
+  return `/tag/${tag.toLowerCase()}/`;
+};
 ---
 
-<div
-  data-title={data.title}
-  class="p-4 border-solid border-2 border-sky-500 grid hover:bg-sky-50"
->
-  <div class="grid gap-2">
-    <h1 class="font-extrabold text-xl text-center md:text-left">
-      {minifyTitle ? minifiedTitle : data.title}{" "}
-    </h1>
-    <Tags tags={data.tags} />
-    <Image {...data.image} format="webp" fit={"contain"} class="h-48 w-96" />
-    <p>{data.description}</p>
-  </div>
-  <div>
-    <a
-      href={`/${data.author.toLowerCase().replace(" ", "")}/${slug}`}
-      class="text-sky-500 font-extrabold">Read more</a
+<div class="grid pb-2 border-b-2 border-b-slate-800 text-sm text-gray-200" data-title={data.title} data-tags={data.tags.join(',')}>
+  <h1 class="font-black hover:underline text-lg">
+    <a href={`/${data.author.toLowerCase().replace(" ", "")}/${slug}`}
+      >{`${index + 1}. ${data.title}`}</a
     >
+  </h1>
+  <div class="flex gap-2">
     {
-      !hideAuthor && (
-        <span class="font-bold text-lg text-sky-700 cursor-pointer">
-          {"- "}
-          <a href={`/${data.author.toLowerCase().replace(" ", "")}/`}>
-            {data.author}
-          </a>
-        </span>
-      )
+      data.tags.map((tag) => (
+        <a
+          href={tagToSlug(tag)}
+          class="text-gray-500 font-semibold text-xs hover:cursor-pointer hover:underline hover:text-gray-400"
+        >{`#${tag.toUpperCase()}`}</a>
+      ))
     }
+  </div>
+  <div class="flex gap-1 place-items-center">
+    <span
+      class="text-gray-400 font-semibold hover:cursor-pointer hover:underline hover:text-gray-300"
+    >
+      <a href={`/${data.author.toLowerCase().replace(" ", "")}/`}>
+        {data.author}</a
+      ></span
+    >
+    {" · "}
+    <span>{formattedDate}</span>
   </div>
 </div>
