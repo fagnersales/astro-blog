@@ -10,6 +10,7 @@ image: {
   width: 1920,
   height: 1080
 }
+tags: ["Minecraft", "Development"]
 ---
 
 # Primeiro passo

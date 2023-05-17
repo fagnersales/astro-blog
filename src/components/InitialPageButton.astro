@@ -1,0 +1,13 @@
+---
+interface Props {
+  text?: string;
+}
+
+const { text } = Astro.props as Props;
+---
+
+<button
+  class="justify-self-start font-black text-lg text-sky-800 bg-sky-200 p-4 pt-2 pb-2"
+>
+  <a href="/">{text || "Página Inicial"}</a>
+</button>

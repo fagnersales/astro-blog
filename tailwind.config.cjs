@@ -4,9 +4,11 @@ module.exports = {
 	theme: {
 		extend: {
       gridTemplateColumns: {
-        'auto-fill': 'repeat(auto-fill, minmax(400px, 1fr));'
+        'auto-fit': 'repeat(auto-fit, minmax(350px, 1fr));'
       }
     },
 	},
-	plugins: [],
+	plugins: [
+    require('@tailwindcss/typography')
+  ],
 }

@@ -1,5 +1,6 @@
 <div class="grid grid-flow-col p-8 bg-sky-200 justify-between">
-  <ul class="flex gap-4">
+  <h2>Logo</h2>
+  <ul class="hidden gap-4 sm:flex">
     <li class="font-bold hover:text-yellow-400 hover:cursor-pointer">
       <a href="/"> Nibo Blog</a>
     </li>
@@ -11,12 +12,16 @@
     </li>
   </ul>
 
-  <ul class="flex gap-2">
-    <li class="font-bold hover:text-yellow-400 hover:cursor-pointer">
-      Login
-    </li>
+  <ul class="hidden gap-4 sm:flex">
+    <li class="font-bold hover:text-yellow-400 hover:cursor-pointer">Login</li>
     <li class="font-bold hover:text-yellow-400 hover:cursor-pointer">
       Cadastrar
     </li>
   </ul>
+
+  <div class="sm:hidden grid gap-0.5 hover:cursor-pointer">
+    <div class="w-8 h-1 bg-black"></div>
+    <div class="w-8 h-1 bg-black"></div>
+    <div class="w-8 h-1 bg-black"></div>
+  </div>
 </div>

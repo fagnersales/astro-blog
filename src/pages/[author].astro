@@ -1,7 +1,8 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
-import Main from "../layouts/Main.astro";
-import Card from "../components/Card.astro";
+import Main from "@layouts/Main.astro";
+import Card from "@components/Card.astro";
+import InitialPageButton from "@components/InitialPageButton.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => {
@@ -32,10 +33,12 @@ const { posts, author } = Astro.props as Props;
 ---
 
 <Main>
-  <section class="m-8">
-    <h1 class="text-3xl font-bold mb-5">{author}</h1>
-    <section class="grid gap-4 grid-cols-auto-fill">
+  <section class="m-8 grid gap-4">
+    <h1 class="text-3xl font-bold">{author}</h1>
+    <section class="grid gap-4 grid-cols-auto-fit">
       {posts.map((post) => <Card {...post} hideAuthor={true} />)}
     </section>
+
+    <InitialPageButton text="Página Inicial" />
   </section>
 </Main>

@@ -1,6 +1,6 @@
 ---
-import Card from "../components/Card.astro";
-import MainLayout from "../layouts/Main.astro";
+import Card from "@components/Card.astro";
+import MainLayout from "@layouts/Main.astro";
 import { getCollection } from "astro:content";
 
 const posts = await getCollection("blog", (post) => {
@@ -9,21 +9,64 @@ const posts = await getCollection("blog", (post) => {
 ---
 
 <MainLayout>
-  <section class="cards-grid">
+  <div class="m-8 max-w-3xl">
+    <form class="flex items-center">
+      <label for="simple-search" class="sr-only">Pesquisar</label>
+      <div class="relative w-full">
+        <div
+          class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5 text-gray-500 dark:text-gray-400"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            ><path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clip-rule="evenodd"></path></svg
+          >
+        </div>
+        <input
+          type="text"
+          id="simple-search"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Pesquisar"
+          required
+        />
+      </div>
+    </form>
+  </div>
+
+  <section class="m-8 grid gap-4 grid-cols-auto-fit">
     {posts.map((post) => <Card {...post} minifyTitle={true} />)}
   </section>
 </MainLayout>
 
-<style>
-  .cards-grid {
-    margin: 16px;
-    display: grid;
-    gap: 1rem;
-    
-    grid-template-columns: repeat(2, 1fr);
+<script>
+  const input = document.querySelector('input[id="simple-search"]');
+  const posts = document.querySelectorAll('[data-title]');
 
-    grid-template-columns: repeat(2, minmax(600px, 1fr));
+  if (!input) throw new Error("could not query input");
 
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  }
-</style>
+  input.addEventListener("input", (e) => {
+    e.preventDefault();
+
+    const target = e.target as HTMLInputElement | null;
+
+    if (!target?.value) return posts.forEach(post => post.classList.remove('hidden'))
+
+    for (const post of posts) {
+      const title = post.getAttribute('data-title')
+
+      if (title) {
+        title.toLowerCase().startsWith(target.value.toLowerCase())
+          ? post.classList.remove('hidden')
+          : post.classList.add('hidden')
+      }
+    }
+
+    console.log(target?.value);
+  });
+</script>

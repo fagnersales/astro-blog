@@ -1,6 +1,7 @@
 ---
 import { Image } from "@astrojs/image/components";
 import type { CollectionEntry } from "astro:content";
+import Tags from "./Tags.astro";
 
 type Props = {
   hideAuthor?: boolean;
@@ -14,18 +15,17 @@ const minifiedTitle =
 ---
 
 <div
-  class="p-4 border-solid border-2 border-sky-500 grid gap-4 hover:bg-sky-50"
+  data-title={data.title}
+  class="p-4 border-solid border-2 border-sky-500 grid hover:bg-sky-50"
 >
   <div class="grid gap-2">
-    <h1>
-      <span class="font-extrabold text-xl"
-        >{minifyTitle ? minifiedTitle : data.title}</span
-      >{" "}
+    <h1 class="font-extrabold text-xl text-center md:text-left">
+      {minifyTitle ? minifiedTitle : data.title}{" "}
     </h1>
+    <Tags tags={data.tags} />
     <Image {...data.image} format="webp" fit={"contain"} class="h-48 w-96" />
     <p>{data.description}</p>
   </div>
-
   <div>
     <a
       href={`/${data.author.toLowerCase().replace(" ", "")}/${slug}`}

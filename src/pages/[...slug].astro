@@ -1,9 +1,10 @@
 ---
-import MainLayout from "../layouts/Main.astro";
-import Author from "../components/Author.astro";
+import MainLayout from "@layouts/Main.astro";
+import Author from "@components/Author.astro";
 import { Image } from "@astrojs/image/components";
-
 import { CollectionEntry, getCollection } from "astro:content";
+import Tags from "@components/Tags.astro";
+import InitialPageButton from "@components/InitialPageButton.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => {
@@ -23,31 +24,24 @@ interface Props {
 }
 
 const { post } = Astro.props as Props;
+
+const { Content } = await post.render();
 ---
 
 <MainLayout>
-  <section class="m-auto my-8 grid gap-4 max-w-3xl place-content-center">
-    <Author date={post.data.date} name={post.data.author} />
+  <section class="m-8 grid md:gap-2 lg:m-auto lg:my-8 lg:max-w-3xl">
     <h1 class="text-3xl font-extrabold">{post.data.title}</h1>
+    <Tags tags={post.data.tags} />
     <p class="text-lg font-semibold">{post.data.description}</p>
-    <Image {...post.data.image} format="webp" />
-    <section>
-      {
-        post.body.split("\r\n").map((text) => {
-          if (text.startsWith("# "))
-            return (
-              <h1 class="text-2xl font-black mb-4">{text.replace("# ", "")}</h1>
-            );
+    <Author date={post.data.date} name={post.data.author} />
+    <Image {...post.data.image} format="webp" class="max-w-2/3" />
 
-          return <p class="text-lg font-medium mb-4">{text}</p>;
-        })
-      }
-    </section>
-
-    <button
-      class="justify-self-start font-black text-lg text-sky-800 bg-sky-200 p-4 pt-2 pb-2"
+    <article
+      class="prose-xl prose-stone min-w-full mt-4 prose-h2:font-black prose-h2:hover:underline prose-h2:hover:text-sky-400 prose-h2:hover:cursor-pointer"
     >
-      <a href="/">Voltar</a>
-    </button>
+      <Content />
+    </article>
+
+    <InitialPageButton />
   </section>
 </MainLayout>
