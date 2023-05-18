@@ -10,7 +10,7 @@ interface Props {
 
 const { title, description, imageUrl } = Astro.props as Props;
 
-const formattedTitle = `🚀 Nibo Space ${title ? `- ${title}` : ""}`
+const formattedTitle = `🚀 Nibo Space ${title ? `- ${title}` : ""}`;
 ---
 
 <!DOCTYPE html>
@@ -31,6 +31,11 @@ const formattedTitle = `🚀 Nibo Space ${title ? `- ${title}` : ""}`
             imageUrl ||
             "https://cdn.discordapp.com/attachments/1105650515976650803/1108579911951724616/image.png",
         },
+      }}
+      twitter={{
+        image:
+          imageUrl ||
+          "https://cdn.discordapp.com/attachments/1105650515976650803/1108579911951724616/image.png",
       }}
     />
   </head>
