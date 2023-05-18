@@ -46,3 +46,21 @@ const formattedTitle = `🚀 Nibo Space ${title ? `- ${title}` : ""}`;
     <slot />
   </body>
 </html>
+
+<style is:global>
+  ::-webkit-scrollbar {
+    width: 1em;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(217, 20%, 30%);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(221, 34%, 45%);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(221, 34%, 52%);
+  }
+</style>
