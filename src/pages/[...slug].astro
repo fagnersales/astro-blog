@@ -1,7 +1,6 @@
 ---
 import MainLayout from "@layouts/Main.astro";
 import Author from "@components/Author.astro";
-import { Image } from "@astrojs/image/components";
 import { CollectionEntry, getCollection } from "astro:content";
 import InitialPageButton from "@components/InitialPageButton.astro";
 
@@ -33,10 +32,13 @@ const tagToSlug = (tag: string): string => {
 const tags = post.data.tags;
 ---
 
-<MainLayout>
+<MainLayout
+  description={post.data.description}
+  imageUrl={post.data.imageMetaUrl}
+  title={post.data.title}
+>
   <section class="m-8 grid md:gap-2 lg:m-auto lg:my-8 lg:max-w-3xl">
     <h1 class="text-3xl font-extrabold">{post.data.title}</h1>
-
     <div class="flex gap-2 mb-2">
       {
         tags.map((tag) => (
@@ -49,12 +51,6 @@ const tags = post.data.tags;
     </div>
 
     <Author date={post.data.date} name={post.data.author} />
-    {
-      post.data.image && (
-        <Image {...post.data.image} format="webp" class="max-w-2/3" />
-      )
-    }
-
     <article
       class="mb-8 prose-xl prose-stone min-w-full mt-4 prose-h1:font-black prose-h2:font-extrabold prose-h3:font-bold"
     >

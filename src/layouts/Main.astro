@@ -1,28 +1,42 @@
 ---
 import Nav from "@components/Nav.astro";
 import { SEO } from "astro-seo";
+
+interface Props {
+  title?: string;
+  description?: string;
+  imageUrl?: string;
+}
+
+const { title, description, imageUrl } = Astro.props as Props;
+
+const formattedTitle = `🚀 Nibo Space ${title ? `- ${title}` : ""}`
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <SEO
-      title={"Nibo Space 🚀"}
-      description={"Conteúdo incrível disponibilizado pelo Nibo 🚀"}
+      title={formattedTitle}
+      description={description || "Conteúdo incrível disponibilizado pelo Nibo"}
       openGraph={{
         basic: {
-          title: "Nibo Space 🚀",
+          title: formattedTitle,
           type: "Blog",
-          image: "https://cdn.discordapp.com/attachments/1105650515976650803/1108579911951724616/image.png"
-        }
+          image:
+            imageUrl ||
+            "https://cdn.discordapp.com/attachments/1105650515976650803/1108579911951724616/image.png",
+        },
       }}
     />
   </head>
-  <body class="bg-gradient-to-b from-gray-800 from-10% to-gray-900 to-90% text-gray-100 min-h-screen">
+  <body
+    class="bg-gradient-to-b from-gray-800 from-10% to-gray-900 to-90% text-gray-100 min-h-screen"
+  >
     <Nav />
     <slot />
   </body>
