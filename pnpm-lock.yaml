@@ -6,14 +6,16 @@ specifiers:
   '@astrojs/tailwind': ^3.1.2
   '@tailwindcss/typography': ^0.5.9
   astro: ^2.4.5
+  astro-seo: ^0.7.2
   tailwindcss: ^3.0.24
 
 dependencies:
   '@astrojs/image': 0.16.8_astro@2.4.5
-  '@astrojs/mdx': 0.19.1_astro@2.4.5
+  '@astrojs/mdx': 0.19.1_astro@2.4.5+rollup@3.21.7
   '@astrojs/tailwind': 3.1.2_ofs77nqcl2aeefy5c2tpvtcin4
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.2
   astro: 2.4.5
+  astro-seo: 0.7.2
   tailwindcss: 3.3.2
 
 packages:
@@ -99,14 +101,14 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx/0.19.1_astro@2.4.5:
+  /@astrojs/mdx/0.19.1_astro@2.4.5+rollup@3.21.7:
     resolution: {integrity: sha512-9GNNZbGT+lGvbRkQK/NaEJcnjj1T94/ne0KwPjJgNCBQrJuskX5IW1hKiE5bRSOFvkAOrBGneYKg0GXYArBOQQ==}
     engines: {node: '>=16.12.0'}
     dependencies:
       '@astrojs/markdown-remark': 2.2.0_astro@2.4.5
       '@astrojs/prism': 2.1.1
       '@mdx-js/mdx': 2.3.0
-      '@mdx-js/rollup': 2.3.0
+      '@mdx-js/rollup': 2.3.0_rollup@3.21.7
       acorn: 8.8.2
       es-module-lexer: 1.2.1
       estree-util-visit: 1.2.1
@@ -679,13 +681,14 @@ packages:
       - supports-color
     dev: false
 
-  /@mdx-js/rollup/2.3.0:
+  /@mdx-js/rollup/2.3.0_rollup@3.21.7:
     resolution: {integrity: sha512-wLvRfJS/M4UmdqTd+WoaySEE7q4BIejYf1xAHXYvtT1du/1Tl/z2450Gg2+Hu7fh05KwRRiehiTP9Yc/Dtn0fA==}
     peerDependencies:
       rollup: '>=2'
     dependencies:
       '@mdx-js/mdx': 2.3.0
-      '@rollup/pluginutils': 5.0.2
+      '@rollup/pluginutils': 5.0.2_rollup@3.21.7
+      rollup: 3.21.7
       source-map: 0.7.4
       vfile: 5.3.7
     transitivePeerDependencies:
@@ -732,7 +735,7 @@ packages:
       escalade: 3.1.1
     dev: false
 
-  /@rollup/pluginutils/5.0.2:
+  /@rollup/pluginutils/5.0.2_rollup@3.21.7:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -744,6 +747,7 @@ packages:
       '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
+      rollup: 3.21.7
     dev: false
 
   /@tailwindcss/typography/0.5.9_tailwindcss@3.3.2:
@@ -951,6 +955,10 @@ packages:
   /astring/1.8.4:
     resolution: {integrity: sha512-97a+l2LBU3Op3bBQEff79i/E4jMD2ZLFD8rHx9B6mXyB2uQwhJQYfiDqUwtfjF4QA1F2qs//N6Cw8LetMbQjcw==}
     hasBin: true
+    dev: false
+
+  /astro-seo/0.7.2:
+    resolution: {integrity: sha512-YnSqj4E6vbF7wRk3gcxOPHBjenhfgaINEJlTsnu4sovAyfyGEdQksbioYKoZ+vERRDaYvEricfSzC6fc9lieww==}
     dev: false
 
   /astro/2.4.5:

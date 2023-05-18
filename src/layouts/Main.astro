@@ -1,5 +1,6 @@
 ---
 import Nav from "@components/Nav.astro";
+import { SEO } from "astro-seo";
 ---
 
 <!DOCTYPE html>
@@ -8,7 +9,18 @@ import Nav from "@components/Nav.astro";
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nibo Space</title>
+
+    <SEO
+      title={"Nibo Space 🚀"}
+      description={"Conteúdo incrível disponibilizado pelo Nibo 🚀"}
+      openGraph={{
+        basic: {
+          title: "Nibo Space 🚀",
+          type: "Blog",
+          image: "https://cdn.discordapp.com/attachments/1105650515976650803/1108579911951724616/image.png"
+        }
+      }}
+    />
   </head>
   <body class="bg-gradient-to-b from-gray-800 from-10% to-gray-900 to-90% text-gray-100 min-h-screen">
     <Nav />
