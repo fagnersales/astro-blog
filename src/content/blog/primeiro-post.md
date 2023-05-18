@@ -16,9 +16,9 @@ Aqui eu quero escrever sobre várias coisas, principalmente sobre programação,
 <Br />
 Além de programação, pretendo tratar de outros assuntos aleatórios, como psicológia, fotográfia, etc. O que der na telha 🤓
 
-## Outras pessosa irão participar ou só você?
+## Outras pessoas irão participar ou só você?
 
-Ainda não sei, como o blog está na fase inicial, ainda é muito cedo para tomar muitas decisões, iniciamlenet não acho que haverá pessoas interessadas nisso, mas se houver, dá para tentar.
+Ainda não sei, como o blog está na fase inicial, ainda é muito cedo para tomar muitas decisões, inicialmente não acho que haverá pessoas interessadas nisso, mas se houver, dá para tentar.
 
 ## Planos para o futuro
 
